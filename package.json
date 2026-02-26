@@ -1,0 +1,10 @@
+{
+  "name": "com.juanda.coreutils",
+  "version": "0.2.0",
+  "displayName": "Core Utils",
+  "description": "Systems and utils every game may have.",
+  "unity": "2022.3",
+  "author": {
+    "name": "Juanda999"
+  }
+}
