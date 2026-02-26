@@ -1,7 +1,7 @@
 namespace Juanda.SaveSystem.Editor
 {
     using UnityEditor;
-    public class EditorSaveController : Editor
+    public class EditorSaveController
     {
         [MenuItem("Utilities/Save System/Save Progress")]
         public static void SaveGameEditor()
