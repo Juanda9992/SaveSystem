@@ -1,0 +1,16 @@
+{
+    "name": "Juanda.SaveSystem.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a0547c39ec9483b41be57a984093aade"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
