@@ -20,6 +20,11 @@ namespace Juanda.SaveSystem
         {
             Dictionary<string,string> dictionaryToReturn = new Dictionary<string, string>();
 
+            if(saveModuleIds.Count == 0)
+            {
+                return null;
+            }
+
             for(int i = 0; i< saveModuleIds.Count;i++)
             {
                 dictionaryToReturn[saveModuleIds[i]] = saveModuleValues[i];

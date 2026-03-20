@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,6 +27,12 @@ namespace Juanda.SaveSystem
         public void LoadGame()
         {
             string jsonSaved = PlayerPrefs.GetString("SAVE_DATA");
+
+            if(String.IsNullOrEmpty(jsonSaved))
+            {
+                Debug.LogWarning("Cant load because there is no save data");
+                return;
+            }
             Isaveable[] saveModules = GameObject.FindObjectsOfType<MonoBehaviour>().OfType<Isaveable>().ToArray();
 
             DataSerializer dataSerializer = JsonUtility.FromJson<DataSerializer>(jsonSaved);
