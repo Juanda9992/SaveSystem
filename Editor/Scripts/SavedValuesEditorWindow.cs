@@ -1,64 +1,87 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UIElements;
-using Juanda.SaveSystem;
-public class SavedValuesEditorWindow : EditorWindow
+namespace Juanda.SaveSystem.Editor
 {
 
-    private DataSerializer dataSerializer;
-
-    private DataSerializer data1;
-    [MenuItem("Utilities/Save System/Open Saved Elements Window")]
-    public static void ShowEditorWindow()
+    public class SavedValuesEditorWindow : EditorWindow
     {
-        SavedValuesEditorWindow savedValuesEditorWindow = GetWindow<SavedValuesEditorWindow>();
-        savedValuesEditorWindow.Show();
-    }
+        private List<TextField> textFieldsList = new List<TextField>();
+        private DataSerializer dataSerializer;
 
-    private void SetDataSerializer()
-    {
-        string json = PlayerPrefs.GetString("SAVE_DATA");
-        dataSerializer = JsonUtility.FromJson<DataSerializer>(json);
-    }
-
-    private void CreateGUI()
-    {
-        if (dataSerializer == null)
+        private DataSerializer data1;
+        [MenuItem("Utilities/Save System/Open Saved Elements Window")]
+        public static void ShowEditorWindow()
         {
-            Debug.Log(dataSerializer);
-            SetDataSerializer();
-            return;
+            SavedValuesEditorWindow savedValuesEditorWindow = GetWindow<SavedValuesEditorWindow>();
+            savedValuesEditorWindow.Show();
         }
-        VisualElement root = rootVisualElement;
-        for (int i = 0; i < dataSerializer.saveModuleIds.Count; i++)
+
+        private void SetDataSerializer()
         {
-            var row = new VisualElement();
-            row.style.flexDirection = FlexDirection.Row;
-            Label idLabel = new Label(dataSerializer.saveModuleIds[i]);
-
-            var column = new VisualElement();
-            column.style.flexDirection = FlexDirection.Column;
-            TextField valueLabel = new TextField();
-            valueLabel.value = dataSerializer.saveModuleValues[i];
-
-            column.Add(valueLabel);
-
-            row.Add(idLabel);
-            row.Add(column);
-
-
-
-            root.Add(row);
+            string json = PlayerPrefs.GetString("SAVE_DATA");
+            dataSerializer = JsonUtility.FromJson<DataSerializer>(json);
         }
-        var printButton = new Button(() =>
+
+        private void CreateGUI()
         {
-            Debug.Log("Pressed");
-        });
+            VisualElement root = rootVisualElement;
+            if (dataSerializer == null)
+            {
+                SetDataSerializer();
 
-        printButton.text = "Save Changes";
-        root.Add(printButton);
+                if (dataSerializer == null)
+                {
+                    Label label = new Label("There is not data saved in the PlayerPrefs!");
+                    root.Add(label);
+                    return;
+                }
+            }
+
+            root.Clear();
+            for (int i = 0; i < dataSerializer.saveModuleIds.Count; i++)
+            {
+                //Row that contains both save id and it´s value
+                var row = new VisualElement();
+                row.style.flexDirection = FlexDirection.Row;
+
+
+                Label idLabel = new Label(dataSerializer.saveModuleIds[i]);
+                idLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+
+                TextField valueLabel = new TextField();
+                valueLabel.value = dataSerializer.saveModuleValues[i];
+
+                textFieldsList.Add(valueLabel);
+
+                row.Add(idLabel);
+                row.Add(valueLabel);
+
+                root.Add(row);
+            }
+            var printButton = new Button(() =>
+            {
+                SaveFromButton();
+            });
+
+            printButton.text = "Save Changes";
+            root.Add(printButton);
+        }
+
+        private void SaveFromButton()
+        {
+            for (int i = 0; i < dataSerializer.saveModuleValues.Count; i++)
+            {
+                dataSerializer.saveModuleValues[i] = textFieldsList[i].value;
+            }
+
+            string jsonToSave = JsonUtility.ToJson(dataSerializer);
+
+            PlayerPrefs.SetString("SAVE_DATA", jsonToSave);
+
+            Debug.Log("Changes Saved!");
+        }
+
     }
-
 }
