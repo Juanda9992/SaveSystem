@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2026-03-23
+### Added
+- Editor window to quickly display the saved data.
+### Fixed 
+- Package Name
 ## [0.1.2] - 2026-03-20
 ### Fixed
 - The system was crashing for loading null save data.

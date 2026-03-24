@@ -1,7 +1,7 @@
 {
   "name": "com.juanda.coreutils",
-  "version": "0.1.2",
-  "displayName": "Save Sysyem",
+  "version": "0.2.0",
+  "displayName": "Save System",
   "description": "System that handles the functionality of saving and loading progress.",
   "unity": "2022.3",
   "author": {
