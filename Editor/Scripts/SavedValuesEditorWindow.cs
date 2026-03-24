@@ -11,7 +11,7 @@ namespace Juanda.SaveSystem.Editor
         private DataSerializer dataSerializer;
 
         private DataSerializer data1;
-        [MenuItem("Utilities/Save System/Open Saved Elements Window")]
+        [MenuItem("Utilities/Save System/Open Saved Elements Window",priority =1)]
         public static void ShowEditorWindow()
         {
             SavedValuesEditorWindow savedValuesEditorWindow = GetWindow<SavedValuesEditorWindow>();
